@@ -9,12 +9,14 @@ import pairmatching.service.GenerateCrewService;
 import pairmatching.service.PairService;
 import pairmatching.utils.ParseUtil;
 import pairmatching.view.InputView;
+import pairmatching.view.OutputView;
 
 import java.util.List;
 
 public class Controller {
 
     InputView inputView = new InputView();
+    OutputView outputView = new OutputView();
     PairService pairService = new PairService();
 
     public void run() {
@@ -49,6 +51,7 @@ public class Controller {
         if (skillMenu.equals(SkillMenu.PAIR_MATCHING)) {
             PairRecord pairRecord = getCourseAndLevelAndMission();
             pairService.generatePairCrew(pairRecord);
+            outputView.printPairMatchingResult(pairRecord.pairCrewToString());
             return true;
         }
         if (skillMenu.equals(SkillMenu.PAIR_INQUIRY)) {

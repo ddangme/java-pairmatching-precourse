@@ -36,4 +36,14 @@ public class PairRecord {
         pairCrews.add(String.join(" : ", names));
     }
 
+    public List<String> pairCrewToString() {
+        List<String> result = new ArrayList<>();
+
+        for (String pairCrew : pairCrews) {
+            result.add(pairCrew);
+        }
+
+        return result;
+    }
+
 }
