@@ -27,6 +27,6 @@ public enum SkillMenu {
         return Arrays.stream(SkillMenu.values())
                 .filter(skill -> skill.code.equals(menuName))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.INPUT_SKILL_MENU_ERROR_MESSAGE));
+                .orElseThrow(() -> new IllegalArgumentException(ErrorMessage.SKILL_MENU_REGEX_ERROR_MESSAGE));
     }
 }
