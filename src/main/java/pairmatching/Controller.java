@@ -66,6 +66,7 @@ public class Controller {
         }
         if (skillMenu.equals(SkillMenu.PAIR_INIT)) {
             pairService.initPairRecords();
+            outputView.printPairRecordInitMessage();
             return true;
         }
         return false;
