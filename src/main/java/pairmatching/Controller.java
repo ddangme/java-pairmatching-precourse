@@ -1,6 +1,7 @@
 package pairmatching;
 
 import pairmatching.constants.Course;
+import pairmatching.constants.ErrorMessage;
 import pairmatching.constants.Level;
 import pairmatching.constants.SkillMenu;
 import pairmatching.domain.Crew;
@@ -50,19 +51,11 @@ public class Controller {
     private boolean runSkill(SkillMenu skillMenu) {
         if (skillMenu.equals(SkillMenu.PAIR_MATCHING)) {
             PairRecord pairRecord = getCourseAndLevelAndMission();
-            pairService.generatePairCrew(pairRecord);
-            outputView.printPairMatchingResult(pairRecord.pairCrewToString());
+            pairMatching(pairRecord);
             return true;
         }
         if (skillMenu.equals(SkillMenu.PAIR_INQUIRY)) {
-            PairRecord pairRecord = getCourseAndLevelAndMission();
-            PairRecord getPairRecord = pairService.getSamePairRecord(pairRecord);
-            if (getPairRecord != null) {
-                outputView.printPairMatchingResult(getPairRecord.pairCrewToString());
-                return true;
-            }
-            outputView.printPairMatchingFailMessage();
-            return true;
+            return pairInquiry();
         }
         if (skillMenu.equals(SkillMenu.PAIR_INIT)) {
             pairService.initPairRecords();
@@ -70,6 +63,48 @@ public class Controller {
             return true;
         }
         return false;
+    }
+
+    private boolean pairInquiry() {
+        PairRecord pairRecord = getCourseAndLevelAndMission();
+        PairRecord getPairRecord = pairService.getSamePairRecord(pairRecord);
+        if (getPairRecord != null) {
+            outputView.printPairMatchingResult(getPairRecord.pairCrewToString());
+            return true;
+        }
+        outputView.printPairMatchingFailMessage();
+        return true;
+    }
+
+    private void pairMatching(PairRecord pairRecord) {
+        if (pairService.generatePairCrew(pairRecord)) {
+            outputView.printPairMatchingResult(pairRecord.pairCrewToString());
+            return;
+        }
+        inputReMatching(pairRecord);
+    }
+
+    private void inputReMatching(PairRecord pairRecord) {
+        while (true) {
+            try {
+                String reMatchingChoice = inputView.inputReMatchingChoiceMessage();
+                validateReMatchingChoice(reMatchingChoice);
+
+                if (reMatchingChoice.equals("네")) {
+                    pairService.rePair(pairRecord);
+                    outputView.printPairMatchingResult(pairRecord.pairCrewToString());
+                }
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void validateReMatchingChoice(String value) {
+        if (!value.equals("네") && !value.equals("아니오")) {
+            throw new IllegalArgumentException(ErrorMessage.RE_MATCHING_ERROR_MESSAGE);
+        }
     }
 
     private PairRecord getCourseAndLevelAndMission() {

@@ -6,4 +6,5 @@ public class ErrorMessage {
     public static final String COURSE_TYPE_ERROR_MESSAGE = "[ERROR] 입력하신 과정은 존재하지 않습니다.";
     public static final String LEVEL_TYPE_ERROR_MESSAGE = "[ERROR] 입력하신 레벨은 존재하지 않습니다.";
     public static final String MISSION_TYPE_ERROR_MESSAGE = "[ERROR] 입력하신 레벨에 맞는 미션이 존재하지 않습니다.";
+    public static final String RE_MATCHING_ERROR_MESSAGE = "[ERROR] 네 혹은 아니오로 대답해 주세요.";
 }

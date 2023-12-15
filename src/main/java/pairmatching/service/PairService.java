@@ -17,7 +17,18 @@ public class PairService {
         this.crews = crews;
     }
 
-    public void generatePairCrew(PairRecord pairRecord) {
+    public boolean generatePairCrew(PairRecord pairRecord) {
+        if (getSamePairRecord(pairRecord) != null) {
+            return false;
+        }
+        pairRecords.add(pairRecord);
+        generatePairRecord(pairRecord);
+        return true;
+    }
+
+    public void rePair(PairRecord pairRecord) {
+        PairRecord samePairRecord = getSamePairRecord(pairRecord);
+        pairRecords.remove(samePairRecord);
         pairRecords.add(pairRecord);
         generatePairRecord(pairRecord);
     }
