@@ -56,7 +56,7 @@ public class PairService {
             names.add(shuffleCreNames.get(0));
             shuffleCreNames.remove(0);
         }
-        if (shuffleCreNames.size() == 3) {
+        if (shuffleCreNames.size() == 1) {
             names.add(shuffleCreNames.get(0));
             shuffleCreNames.remove(0);
         }

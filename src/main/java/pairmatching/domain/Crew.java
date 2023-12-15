@@ -13,7 +13,7 @@ public class Crew {
     }
 
     public boolean containInCourse(Course course) {
-        return course.equals(course);
+        return this.course.equals(course);
     }
 
     public String getName() {
