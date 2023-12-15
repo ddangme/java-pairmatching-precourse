@@ -62,6 +62,15 @@ public class PairService {
         }
     }
 
+    public PairRecord getSamePairRecord(PairRecord pairRecord) {
+        for (PairRecord record : pairRecords) {
+            if (record.isSameCourseAndLevel(pairRecord)) {
+                return record;
+            }
+        }
+        return null;
+    }
+
     public void initPairRecords() {
         pairRecords = new ArrayList<>();
     }

@@ -46,4 +46,8 @@ public class PairRecord {
         return result;
     }
 
+    public boolean isSameCourseAndLevel(PairRecord pairRecord) {
+        return this.course.equals(pairRecord.course) && this.level.equals(pairRecord.level);
+    }
+
 }

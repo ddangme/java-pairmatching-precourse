@@ -56,6 +56,12 @@ public class Controller {
         }
         if (skillMenu.equals(SkillMenu.PAIR_INQUIRY)) {
             PairRecord pairRecord = getCourseAndLevelAndMission();
+            PairRecord getPairRecord = pairService.getSamePairRecord(pairRecord);
+            if (getPairRecord != null) {
+                outputView.printPairMatchingResult(getPairRecord.pairCrewToString());
+                return true;
+            }
+            outputView.printPairMatchingFailMessage();
             return true;
         }
         if (skillMenu.equals(SkillMenu.PAIR_INIT)) {
