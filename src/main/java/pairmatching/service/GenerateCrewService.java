@@ -16,13 +16,13 @@ public class GenerateCrewService {
     public List<Crew> generateCrews() {
         List<Crew> crews = new ArrayList<>();
 
-        generateBackendCrew(crews);
-        generateFrontendCrew(crews);
+        generateBackendCrews(crews);
+        generateFrontendCrews(crews);
 
         return crews;
     }
 
-    private void generateBackendCrew(List<Crew> crews) {
+    private void generateBackendCrews(List<Crew> crews) {
         URL frontend = getClass().getClassLoader().getResource("backend-crew.md");
         try {
             List<String> backendCrewNames = Files.readAllLines(Path.of(frontend.getPath()));
@@ -34,7 +34,7 @@ public class GenerateCrewService {
         }
     }
 
-    private void generateFrontendCrew(List<Crew> crews) {
+    private void generateFrontendCrews(List<Crew> crews) {
         URL frontend = getClass().getClassLoader().getResource("frontend-crew.md");
         try {
             List<String> frontendCrewNames = Files.readAllLines(Path.of(frontend.getPath()));

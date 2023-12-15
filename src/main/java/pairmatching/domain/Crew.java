@@ -12,4 +12,11 @@ public class Crew {
         this.name = name;
     }
 
+    public boolean containInCourse(Course course) {
+        return course.equals(course);
+    }
+
+    public String getName() {
+        return name;
+    }
 }

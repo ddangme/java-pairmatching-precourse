@@ -28,5 +28,12 @@ public class PairRecord {
         }
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public void addPairCrews(List<String> names) {
+        pairCrews.add(String.join(" : ", names));
+    }
 
 }

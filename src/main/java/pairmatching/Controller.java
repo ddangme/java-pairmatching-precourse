@@ -20,13 +20,17 @@ public class Controller {
     public void run() {
         setCrews();
 
-        SkillMenu skillMenu = menuChoice();
-        runSkill(skillMenu);
+        boolean programRun = true;
+        while (programRun) {
+            SkillMenu skillMenu = menuChoice();
+            programRun = runSkill(skillMenu);
+        }
     }
 
     private void setCrews() {
         GenerateCrewService generateCrewService = new GenerateCrewService();
         List<Crew> crews = generateCrewService.generateCrews();
+
         pairService.setCrews(crews);
     }
 
@@ -41,32 +45,31 @@ public class Controller {
         }
     }
 
-    private void runSkill(SkillMenu skillMenu) {
+    private boolean runSkill(SkillMenu skillMenu) {
         if (skillMenu.equals(SkillMenu.PAIR_MATCHING)) {
-            inputCourseAndLevelAndMission();
-            return;
+            PairRecord pairRecord = getCourseAndLevelAndMission();
+            pairService.generatePairCrew(pairRecord);
+            return true;
         }
         if (skillMenu.equals(SkillMenu.PAIR_INQUIRY)) {
-            return;
+            PairRecord pairRecord = getCourseAndLevelAndMission();
+            return true;
         }
         if (skillMenu.equals(SkillMenu.PAIR_INIT)) {
-            return;
+            pairService.initPairRecords();
+            return true;
         }
-        if (skillMenu.equals(SkillMenu.PROGRAM_SHUT_DOWN)) {
-
-        }
+        return false;
     }
 
-    private void inputCourseAndLevelAndMission() {
+    private PairRecord getCourseAndLevelAndMission() {
         while (true) {
             try {
                 String inputCourseAndLevelAndMission = inputView.inputCourseAndLevelAndMission(
                         Course.courseNameToString(), Level.levelAndMissionToString());
                 List<String> courseAndLevelAndMission = ParseUtil.stringToListStringByTrim(inputCourseAndLevelAndMission);
 
-                PairRecord pairRecord = new PairRecord(courseAndLevelAndMission);
-                pairService.generatePairCrew(pairRecord);
-                break;
+                return new PairRecord(courseAndLevelAndMission);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
